@@ -46,7 +46,7 @@ variable "vm_prefix" {
 variable "vm_size" {
   type        = string
   description = "VM size for building"
-  default     = "Standard_D2d_v4"
+  default     = "Standard_D4d_v4"
 }
 
 variable "os_disk_size_gb" {
@@ -62,7 +62,7 @@ variable "os_disk_size_gb" {
 variable "disk_additional_size" {
   type        = list(number)
   description = "Data disk sizes in GB"
-  default     = [10]
+  default     = []
 }
 
 # Base Image Parameters
