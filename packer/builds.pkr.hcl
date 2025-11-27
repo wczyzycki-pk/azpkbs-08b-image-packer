@@ -21,11 +21,6 @@ build {
     destination = "/tmp/cleanup.sh"
   }
 
-  provisioner "file" {
-    content     = templatefile("scripts/setup-ssh-key.tpl.sh", { ssh_public_key = local.ssh_public_key })
-    destination = "/tmp/setup-ssh-key.sh"
-  }
-
   # Execute system setup script
   provisioner "shell" {
     inline = [
@@ -35,19 +30,24 @@ build {
     ]
   }
 
-  # Execute SSH key setup script
-  provisioner "shell" {
-    inline = [
-      "chmod +x /tmp/setup-ssh-key.sh",
-      "/tmp/setup-ssh-key.sh"
-    ]
-  }
-
   # Execute cleanup script
   provisioner "shell" {
     inline = [
       "chmod +x /tmp/cleanup.sh",
       "/tmp/cleanup.sh"
+    ]
+  }
+
+  # Post-processors
+  post-processor "manifest" {
+    output     = "packer-manifest.json"
+    strip_path = true
+  }
+
+  post-processor "shell-local" {
+    inline = [
+      "echo 'Built image version: ${var.image_version}' > built_version.txt",
+      "echo 'Build completed at $(date)' >> built_version.txt"
     ]
   }
 }

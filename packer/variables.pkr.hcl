@@ -1,3 +1,10 @@
+# Azure Infrastructure
+variable "subscription_id" {
+  type        = string
+  description = "Azure Subscription ID"
+  default     = env("ARM_SUBSCRIPTION_ID")
+}
+
 variable "resource_group_name" {
   type        = string
   description = "Resource group name for the image"
@@ -10,6 +17,7 @@ variable "location" {
   default     = "France Central"
 }
 
+# Gallery Configuration
 variable "gallery_name" {
   type        = string
   description = "Nazwa Shared Image Gallery"
@@ -28,6 +36,13 @@ variable "image_version" {
   default     = "1.0.0"
 }
 
+# VM Configuration
+variable "vm_prefix" {
+  type        = string
+  description = "Prefix for VM names"
+  default     = "azpkbc"
+}
+
 variable "vm_size" {
   type        = string
   description = "VM size for building"
@@ -44,18 +59,13 @@ variable "os_disk_size_gb" {
   }
 }
 
-variable "data_disk_size_gb" {
-  type        = number
-  description = "Data disk size in GB"
-  default     = 10
+variable "disk_additional_size" {
+  type        = list(number)
+  description = "Data disk sizes in GB"
+  default     = [10]
 }
 
-variable "ssh_public_key_path" {
-  type        = string
-  description = "Path to SSH public key file"
-  default     = "~/.ssh/id_ed25519_az.pub"
-}
-
+# Base Image Parameters
 variable "base_image_params" {
   type = object({
     os_type         = string,
@@ -73,12 +83,17 @@ variable "base_image_params" {
   }
 }
 
-variable "subscription_id" {
+# SSH Configuration
+variable "ssh_public_key_path" {
   type        = string
-  description = "Azure Subscription ID"
-  default     = env("ARM_SUBSCRIPTION_ID")
+  description = "Path to SSH public key file"
+  default     = "~/.ssh/id_ed25519_az.pub"
 }
 
 locals {
-  ssh_public_key = fileexists(pathexpand(var.ssh_public_key_path)) ? file(pathexpand(var.ssh_public_key_path)) : ""
+  ssh_public_key = (
+    fileexists(pathexpand(var.ssh_public_key_path))
+    ? file(pathexpand(var.ssh_public_key_path))
+    : ""
+  )
 }
