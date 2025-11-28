@@ -16,12 +16,12 @@ Projekt demonstruje tworzenie i zarządzanie niestandardowymi obrazami maszyn wi
 
 ## Użycie
 
-1. Zbuduj niestandardowy obraz przy użyciu Packer:
+1. Zbuduj i opublikuj obraz w Shared Image Gallery:
    ```bash
    cd packer
-   packer init .
-   packer build .
+   ./build-image.sh
    ```
+   Skrypt automatycznie inkrementuje wersję, buduje obraz i ustawia end-of-life date (6 miesięcy) oraz rekomendowane specyfikacje VM.
 
 2. Wdróż Shared Image Gallery przy użyciu OpenTofu:
    ```bash
@@ -33,8 +33,9 @@ Projekt demonstruje tworzenie i zarządzanie niestandardowymi obrazami maszyn wi
 
 ## Wyniki
 
-- Niestandardowy obraz VM: `azpkbc-lab08b-base-image`
+- Niestandardowy obraz VM: `azpkbc-lab08b-base-image` z automatycznym wersjonowaniem
 - Shared Image Gallery: `shared_image_gallery`
+- Wersje obrazów z ustawioną datą end-of-life i rekomendowanymi specyfikacjami VM
 
 ---
 

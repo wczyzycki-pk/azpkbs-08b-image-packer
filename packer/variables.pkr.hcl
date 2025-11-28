@@ -46,7 +46,7 @@ variable "vm_prefix" {
 variable "vm_size" {
   type        = string
   description = "VM size for building"
-  default     = "Standard_D4d_v4"
+  default     = "Standard_D2d_v4"
 }
 
 variable "os_disk_size_gb" {
@@ -88,6 +88,38 @@ variable "ssh_public_key_path" {
   type        = string
   description = "Path to SSH public key file"
   default     = "~/.ssh/id_ed25519_az.pub"
+}
+
+# End of Life Configuration
+variable "image_end_of_life_months" {
+  type        = number
+  description = "Number of months until image end of life"
+  default     = 6
+}
+
+# Recommended VM Specifications
+variable "image_recommended_specs" {
+  type = object({
+    cpu = object({
+      min = number
+      max = number
+    })
+    mem = object({
+      min = number
+      max = number
+    })
+  })
+  description = "Recommended VM specifications for CPU (vCPUs) and memory (GB)"
+  default = {
+    cpu = {
+      min = 1
+      max = 4
+    }
+    mem = {
+      min = 1
+      max = 8
+    }
+  }
 }
 
 locals {

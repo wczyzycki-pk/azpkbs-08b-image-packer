@@ -33,3 +33,9 @@ sudo apt-get install -y \
 
 # Install Azure CLI
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+# Setup SSH key for packer user
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+echo "$SSH_PUBLIC_KEY" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys

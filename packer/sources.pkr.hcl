@@ -8,21 +8,17 @@ source "azure-arm" "debian" {
   resource_group_name = var.resource_group_name
   location            = var.location
 
-  # Image Naming
-  capture_name_prefix = var.vm_prefix
-  managed_image_name  = "${var.vm_prefix}-base-image"
+  # Nazwnictwo obrazów
+  capture_name_prefix               = var.vm_prefix
+  managed_image_name                = "${var.vm_prefix}-base-image"
+  managed_image_resource_group_name = var.resource_group_name
 
-  # Temporary Resources
+  # Tymaczasowe zasoby packera - nazwy
   temp_resource_group_name = join("_", [var.resource_group_name, "packer", "temp", "packer"])
   temp_compute_name        = join("-", [var.vm_prefix, "packer", "temp", "vm"])
   temp_nic_name            = join("-", [var.vm_prefix, "packer", "temp", "nic"])
   temp_os_disk_name        = join("-", [var.vm_prefix, "packer", "temp", "osdisk"])
 
-  # Network Configuration
-  virtual_network_name                   = "azpkbc-vnet"
-  virtual_network_subnet_name            = "subnet-c"
-  virtual_network_resource_group_name    = var.resource_group_name
-  private_virtual_network_with_public_ip = true
 
   # Storage and Gallery Settings
   managed_image_zone_resilient       = true
@@ -49,18 +45,15 @@ source "azure-arm" "debian" {
   vm_size         = var.vm_size
   os_disk_size_gb = var.os_disk_size_gb
 
-  # Cloud-init for SSH key injection
-  # user_data = templatefile("scripts/cloud-init.yaml.tpl", { ssh_public_key = local.ssh_public_key })
-
 
   # Polling and Timeout
-  polling_duration_timeout = "30m"
+  polling_duration_timeout = "15m"
 
   # Azure Tags
   azure_tags = {
     environment = "dev"
     project     = "azpkbc-lab08b-base-img"
-    lab         = "08b"
+    lab         = "08"
     group       = "14Kx"
     subgroup    = "K0x"
     owner       = "Xavras Wyżryn"

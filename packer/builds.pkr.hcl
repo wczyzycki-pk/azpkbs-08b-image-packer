@@ -23,6 +23,7 @@ build {
 
   # Execute system setup script
   provisioner "shell" {
+    environment_vars = ["SSH_PUBLIC_KEY=${local.ssh_public_key}"]
     inline = [
       "whoami",
       "chmod +x /tmp/setup-system.sh",
