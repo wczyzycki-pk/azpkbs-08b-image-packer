@@ -57,5 +57,8 @@ source "azure-arm" "debian" {
     group       = "14Kx"
     subgroup    = "K0x"
     owner       = "Xavras Wyżryn"
+    type        = "vm_image"
+    created_by  = "Packer"
+    created_at  = timestamp()
   }
 }

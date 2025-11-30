@@ -21,7 +21,7 @@ sudo apt-get install -y \
   wget \
   git \
   vim \
-  htop \
+  htop btop \
   net-tools \
   jq \
   bash \
