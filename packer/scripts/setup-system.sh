@@ -35,6 +35,15 @@ sudo apt-get install -y \
   jq \
   nginx
 
+# Setup locale before Azure CLI installation
+echo "Configuring Polish locale..."
+sudo apt-get install -y locales >/dev/null 2>&1
+sudo sed -i 's/# pl_PL.UTF-8 UTF-8/pl_PL.UTF-8 UTF-8/' /etc/locale.gen
+sudo locale-gen pl_PL.UTF-8 >/dev/null 2>&1
+sudo update-locale LANG=pl_PL.UTF-8 LC_ALL=pl_PL.UTF-8 LANGUAGE=pl_PL:pl:en >/dev/null 2>&1 || true
+sudo timedatectl set-timezone Europe/Warsaw >/dev/null 2>&1 || true
+echo "Locale configuration completed"
+
 # Install btop from backports
 sudo apt-get install -y -t bookworm-backports btop
 

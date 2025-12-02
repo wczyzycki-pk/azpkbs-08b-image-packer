@@ -14,7 +14,7 @@ source "azure-arm" "debian" {
   managed_image_resource_group_name = var.resource_group_name
 
   # Tymaczasowe zasoby packera - nazwy
-  temp_resource_group_name = join("_", [var.resource_group_name, "packer", "temp", "packer", var.project])
+  temp_resource_group_name = join("_", [var.project, "packer", "temp", "rg", ])
   temp_compute_name        = join("-", [var.vm_prefix, "packer", "temp", "vm"])
   temp_nic_name            = join("-", [var.vm_prefix, "packer", "temp", "nic"])
   temp_os_disk_name        = join("-", [var.vm_prefix, "packer", "temp", "osdisk"])

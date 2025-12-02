@@ -17,11 +17,6 @@ build {
   }
 
   provisioner "file" {
-    source      = "scripts/setup-locale.sh"
-    destination = "/tmp/setup-locale.sh"
-  }
-
-  provisioner "file" {
     source      = "scripts/cleanup.sh"
     destination = "/tmp/cleanup.sh"
   }
@@ -34,15 +29,6 @@ build {
       "chmod +x /tmp/setup-system.sh",
       "/tmp/setup-system.sh"
     ]
-  }
-
-  # Setup locale
-  provisioner "shell" {
-    inline = [
-      "chmod +x /tmp/setup-locale.sh",
-      "/tmp/setup-locale.sh"
-    ]
-    max_retries = 1
   }
 
   # Execute cleanup script
