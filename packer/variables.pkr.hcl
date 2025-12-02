@@ -11,6 +11,12 @@ variable "resource_group_name" {
   default     = "azpkbc-rg-advanced-labs"
 }
 
+variable "project" {
+  type        = string
+  description = "Project name for the image"
+  default     = "azpkbc-08b-image-packer"
+}
+
 variable "location" {
   type        = string
   description = "Azure region"

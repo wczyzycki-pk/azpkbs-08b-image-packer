@@ -26,6 +26,16 @@ packer build -force -var "image_version=$NEW_VERSION" .
 END_OF_LIFE_MONTHS=6
 END_DATE=$(date -v+${END_OF_LIFE_MONTHS}m +%Y-%m-%dT%H:%M:%SZ)
 
+az sig image-version update \
+  --gallery-name shared_image_gallery \
+  --gallery-image-definition azpkbc-lab08b-base-image \
+  --resource-group azpkbc-rg-advanced-labs \
+  --gallery-image-version "$NEW_VERSION" \
+  --resource-group azpkbc-rg-advanced-labs \
+  --subscription "$ARM_SUBSCRIPTION_ID" \
+  --set publishingProfile.endOfLifeDate=$END_DATE \
+  --output none
+
 # Note: Setting end-of-life date and recommended specs requires Azure CLI with support for these parameters in update command.
 # For now, these properties can be set manually via Azure portal or CLI after build.
 echo "Build completed. Image version: $NEW_VERSION"

@@ -1,2 +1,2 @@
-Built image version: 1.0.2
+Built image version: 1.0.4
 Build completed at $(date)
