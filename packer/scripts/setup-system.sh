@@ -33,7 +33,8 @@ sudo apt-get install -y \
   vim \
   net-tools \
   jq \
-  nginx
+  nginx \
+  stress
 
 # Setup locale before Azure CLI installation
 echo "Configuring Polish locale..."
